@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     private PlayerMovement p_movement;
     private PlayerShooting p_shooting;
-    private PlayerAim p_aim;
 
     private void Awake()
     {
@@ -40,17 +39,16 @@ public class PlayerController : MonoBehaviour
     {
         p_movement = GetComponent<PlayerMovement>();
         p_shooting = GetComponent<PlayerShooting>();
-        p_aim = GetComponent<PlayerAim>();
     }
 
     private void Update()
     {
-        p_aim.AimCursor(aim.ReadValue<Vector2>());
+        p_shooting.AimCursor(aim.ReadValue<Vector2>());
     }
 
     private void FixedUpdate()
     {
-        p_movement.Move(movement.ReadValue<Vector2>());   
+        p_movement.Move(movement.ReadValue<Vector2>(), p_shooting.Is_Aiming);   
     }
 
     private void HandleShooting(InputAction.CallbackContext obj)

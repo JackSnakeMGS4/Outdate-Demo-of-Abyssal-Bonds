@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private float max_speed = 1f;
     [SerializeField, Range(1f, 50f)]
     private float acceleration = 1f;
+    [SerializeField, Range(1f, 50f)]
+    private float acceleration_aiming = 1f;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -19,10 +21,10 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Move(Vector2 vector2)
+    public void Move(Vector2 vector2, bool is_aiming)
     {
-        float horizontal_axis = vector2.x * acceleration;
-        float vertical_axis = vector2.y * acceleration;
+        float horizontal_axis = vector2.x * (is_aiming ? acceleration_aiming : acceleration);
+        float vertical_axis = vector2.y * (is_aiming ? acceleration_aiming : acceleration);
 
         if (horizontal_axis > 0) animator.SetInteger("Direction", 2);
         if (horizontal_axis < 0) animator.SetInteger("Direction", 3);
