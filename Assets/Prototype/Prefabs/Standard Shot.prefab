@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -6824944484502726945}
   - component: {fileID: 4885285590211735532}
   - component: {fileID: 9078842416338990363}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Standard Shot
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05567cf6dc904a24faf9de7adedc454d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroy_self_time: 10

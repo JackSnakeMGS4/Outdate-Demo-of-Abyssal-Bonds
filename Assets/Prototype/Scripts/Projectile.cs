@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField]
+    private float destroy_self_time = 10f;
+
     private Rigidbody2D rb;
     private Vector3 force;
     private float firing_velocity;
@@ -16,6 +19,7 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         MoveProjectile();
+        Destroy(gameObject, destroy_self_time);
     }
 
     private void MoveProjectile()
