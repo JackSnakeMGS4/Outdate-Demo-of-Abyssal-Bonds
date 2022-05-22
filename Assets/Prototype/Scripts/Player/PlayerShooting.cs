@@ -39,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
     {
         //NOTE: needs to be handled differently for mouse
         //Debug.Log(vector2);
-        if (vector2.magnitude > 0)
+        if (vector2.magnitude > 0.01f)
         {
             // Fix direction angle bug; probably have to use mathf.atan for it?
 

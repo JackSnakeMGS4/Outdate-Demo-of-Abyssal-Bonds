@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        p_movement.Move(movement.ReadValue<Vector2>(), p_shooting.Is_Aiming);   
+        p_movement.Move(movement.ReadValue<Vector2>(), p_shooting.Is_Aiming);
     }
 
     private void HandleShooting(InputAction.CallbackContext obj)
