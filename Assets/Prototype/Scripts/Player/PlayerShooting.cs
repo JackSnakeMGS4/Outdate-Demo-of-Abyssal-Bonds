@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -30,9 +31,17 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField, Range(0f, 5f)]
     private float reload_time = 2.5f;
 
+    [SerializeField]
+    private TextMeshProUGUI ammo_count_text;
+
     private void Start()
     {
         current_ammo = max_ammo;
+    }
+
+    private void Update()
+    {
+        ammo_count_text.text = "Ammo: " + current_ammo.ToString();
     }
 
     public void AimCursor(Vector2 vector2)

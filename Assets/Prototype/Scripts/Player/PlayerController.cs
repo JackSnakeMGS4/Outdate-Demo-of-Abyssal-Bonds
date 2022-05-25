@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement p_movement;
     private PlayerShooting p_shooting;
 
+    [SerializeField]
+    private DeckManager deckManager;
+
     private void Awake()
     {
         player_input_actions = new PlayerInputActions();
@@ -24,8 +28,20 @@ public class PlayerController : MonoBehaviour
         aim = player_input_actions.Player.Aim;
         aim.Enable();
 
-        player_input_actions.Player.Shoot.started += HandleShooting;
+        player_input_actions.Player.Shoot.performed += HandleShooting;
         player_input_actions.Player.Shoot.Enable();
+
+        player_input_actions.Player.UseSingleCard.performed += HandleSingleCard;
+        player_input_actions.Player.UseSingleCard.Enable();
+
+        player_input_actions.Player.ShuffleReloadDeck.performed += HandleDeckShuffle;
+        player_input_actions.Player.ShuffleReloadDeck.Enable();
+
+        player_input_actions.Player.StackCards.performed += HandleSalvoDeck;
+        player_input_actions.Player.StackCards.Enable();
+
+        player_input_actions.Player.UseSalvo.performed += HandleSalvo;
+        player_input_actions.Player.UseSalvo.Enable();
     }
 
     private void OnDisable()
@@ -54,5 +70,25 @@ public class PlayerController : MonoBehaviour
     private void HandleShooting(InputAction.CallbackContext obj)
     {
         p_shooting.Shoot();
+    }
+
+    private void HandleSingleCard(InputAction.CallbackContext obj)
+    {
+        deckManager.UseCard();
+    }
+
+    private void HandleDeckShuffle(InputAction.CallbackContext obj)
+    {
+        deckManager.ShuffleDeck();
+    }
+
+    private void HandleSalvoDeck(InputAction.CallbackContext obj)
+    {
+        deckManager.AddToSalvo();
+    }
+
+    private void HandleSalvo(InputAction.CallbackContext obj)
+    {
+        deckManager.UseSalvo();
     }
 }

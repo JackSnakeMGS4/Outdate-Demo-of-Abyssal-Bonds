@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a6ca30051b1bbb45bd62696d7198e94, type: 3}
-  m_Name: Hollow Point
+  m_Name: Laser Shot
   m_EditorClassIdentifier: 
-  name: Hollow Point
-  description: Useful for dealing maximum damage while offering no penetration against
-    shielded targets
+  name: Laser Shot
+  description: Excels against shielded targets while maintaining low damage output.
+    It can also penetrate multiple targets.
   card_type: 0
-  card_art: {fileID: 21300000, guid: c7bf45f0ef95bed4491c5809fc6bf484, type: 3}
-  percentage_vs_health: 100
-  percentage_vs_shields: 0
+  card_art: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
+  percentage_vs_health: 25
+  percentage_vs_shields: 100
