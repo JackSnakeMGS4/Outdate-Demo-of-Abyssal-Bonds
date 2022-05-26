@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetHurt : MonoBehaviour
+public class TargetHealth : MonoBehaviour
 {
+    [SerializeField, Range(1f, 1000f)]
+    private float max_health = 1;
+    private float current_health;
+    
+    [SerializeField, Range(1f, 1000f)]
+    private float max_shields = 1;
+    private float current_shields;
+
     [SerializeField]
     private float delay = .3f;
     [SerializeField]
@@ -14,19 +22,40 @@ public class TargetHurt : MonoBehaviour
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        current_health = max_health;
+        current_shields = max_shields;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TakeDamage(float health_damage, float shield_damage)
     {
-        if (collision.CompareTag("Projectile"))
+        if(current_shields <= 0)
         {
-            StartCoroutine(DamageEffectSequence());
+            StartCoroutine(DamageEffectSequence(health_damage));
+        }
+        else
+        {
+            StartCoroutine(ShieldEffectSequence(shield_damage));
         }
     }
 
-    IEnumerator DamageEffectSequence()
+    IEnumerator DamageEffectSequence(float damage)
     {
         sprite.color = hurt_color;
+        current_health -= damage;
+
+        yield return new WaitForSeconds(delay);
+
+        sprite.color = Color.white;
+        if (current_health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator ShieldEffectSequence(float damage)
+    {
+        sprite.color = Color.blue;
+        current_shields -= damage;
 
         yield return new WaitForSeconds(delay);
 

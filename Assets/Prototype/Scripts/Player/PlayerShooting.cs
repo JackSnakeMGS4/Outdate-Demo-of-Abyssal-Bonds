@@ -22,8 +22,8 @@ public class PlayerShooting : MonoBehaviour
 
     [SerializeField, Header("Projectile Fields")]
     private GameObject standard_shot;
-    [SerializeField, Range(1f, 10f)]
-    private float firing_velocity;
+    [SerializeField, Range(1f, 30f)]
+    private float firing_velocity = 20f;
 
     [SerializeField, Header("Gun Settings")]
     private int max_ammo = 9;
@@ -34,8 +34,11 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI ammo_count_text;
 
+    private SpriteRenderer sprite;
+
     private void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
         current_ammo = max_ammo;
     }
 
@@ -53,10 +56,10 @@ public class PlayerShooting : MonoBehaviour
             // Fix direction angle bug; probably have to use mathf.atan for it?
 
             is_aiming = true;
-            aim_pos = new Vector3(fire_point.position.x + vector2.x, fire_point.position.y + vector2.y, 0);
+            aim_pos = new Vector3(fire_point.position.x + vector2.x * range, fire_point.position.y + vector2.y * range, 0);
             //draw aiming sprite in input direction in relation to player position and range field
             //draw line to aim point
-            Debug.DrawLine(fire_point.position, aim_pos,Color.yellow);
+            Debug.DrawLine(fire_point.position, aim_pos, Color.yellow);
         }
         else
         {
@@ -74,9 +77,15 @@ public class PlayerShooting : MonoBehaviour
             Vector2 dir = aim_pos - fire_point.position;
             dir.Normalize();
 
-            GameObject obj = Instantiate(standard_shot, fire_point.position, fire_point.rotation);
-            Projectile script = obj.GetComponent<Projectile>();
-            script.ProjectileSettings(dir, firing_velocity);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            fire_point.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            GameObject projectile = Instantiate(standard_shot, fire_point.position, fire_point.rotation);
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+            rb.AddForce(dir * firing_velocity, ForceMode2D.Impulse);
+
+            projectile.GetComponent<Projectile>().Sprite.sortingLayerName = sprite.sortingLayerName;
+
             current_ammo--;
 
             if(current_ammo <= 0)

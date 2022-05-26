@@ -75,7 +75,12 @@ public class DeckManager : MonoBehaviour
             {
                 foreach (CardObject card_obj in current_hand)
                 {
-                    discard_pile.Add(card_obj.Card);
+                    if (!available_card_slots[card_obj.Index])
+                    {
+                        available_card_slots[card_obj.Index] = true;
+                        card_obj.HideCard();
+                        discard_pile.Add(card_obj.Card);
+                    }
                 }
                 current_hand.Clear();
             }
@@ -118,15 +123,13 @@ public class DeckManager : MonoBehaviour
     {
         foreach (CardObject card_obj in salvo_slots)
         {
-            available_salvo_slots[card_obj.Index] = true;
-            card_obj.HideCard();
-            discard_pile.Add(card_obj.Card);
+            if (!available_salvo_slots[card_obj.Index])
+            {
+                available_salvo_slots[card_obj.Index] = true;
+                card_obj.HideCard();
+                discard_pile.Add(card_obj.Card);
+            }
         }
-    }
-
-    private void Start()
-    {
-        DealNewHand();
     }
 
     private void DealNewHand()
@@ -138,6 +141,11 @@ public class DeckManager : MonoBehaviour
             DrawCard();
             i++;
         }
+    }
+
+    private void Start()
+    {
+        DealNewHand();
     }
 
     private void Update()

@@ -5,38 +5,41 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
+    private float damage = 1f;
+    [SerializeField]
     private float destroy_self_time = 10f;
+    private float percentage_vs_health = 1f;
+    private float percentage_vs_shields = 1f;
 
-    private Rigidbody2D rb;
-    private Vector3 force;
-    private float firing_velocity;
+    [SerializeField]
+    private GameObject impact_effect;
 
-    private void Start()
+    private SpriteRenderer sprite;
+    public SpriteRenderer Sprite { get { return sprite; } }
+
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        MoveProjectile();
         Destroy(gameObject, destroy_self_time);
-    }
-
-    private void MoveProjectile()
-    {
-        rb.AddForce(force * firing_velocity, ForceMode2D.Impulse);
-    }
-
-    public void ProjectileSettings(Vector3 dir, float firing_vel)
-    {
-        force = dir;
-        firing_velocity = firing_vel;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (!collision.CompareTag("Player") && !collision.CompareTag("Projectile"))
         {
+            GameObject impact_obj = Instantiate(impact_effect, transform.position, Quaternion.identity);
+            impact_obj.GetComponent<SpriteRenderer>().sortingLayerName = sprite.sortingLayerName;
+
+            TargetHealth target_health = collision.GetComponent<TargetHealth>();
+            if (target_health != null)
+            {
+                target_health.TakeDamage(damage * percentage_vs_health, damage * percentage_vs_shields);
+            }
+            Destroy(impact_obj, .2f);
             Destroy(gameObject);
         }
     }

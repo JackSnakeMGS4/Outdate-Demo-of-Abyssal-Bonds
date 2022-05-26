@@ -13,12 +13,12 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement p_movement;
     private PlayerShooting p_shooting;
 
-    [SerializeField]
     private DeckManager deckManager;
 
     private void Awake()
     {
         player_input_actions = new PlayerInputActions();
+        deckManager = GetComponent<DeckManager>();
     }
 
     private void OnEnable()
@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
         player_input_actions.Player.Shoot.performed += HandleShooting;
         player_input_actions.Player.Shoot.Enable();
+
+        player_input_actions.Player.Dash.performed += HandleDash;
+        player_input_actions.Player.Dash.Enable();
 
         player_input_actions.Player.UseSingleCard.performed += HandleSingleCard;
         player_input_actions.Player.UseSingleCard.Enable();
@@ -90,5 +93,10 @@ public class PlayerController : MonoBehaviour
     private void HandleSalvo(InputAction.CallbackContext obj)
     {
         deckManager.UseSalvo();
+    }
+
+    private void HandleDash(InputAction.CallbackContext obj)
+    {
+        p_movement.Dash(movement.ReadValue<Vector2>());
     }
 }

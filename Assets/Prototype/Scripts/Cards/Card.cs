@@ -12,6 +12,7 @@ public class Card: ScriptableObject
     public int card_type;
 
     public Sprite card_art;
+    public GameObject projectile_type;
 
     public float percentage_vs_health;
     public float percentage_vs_shields;
