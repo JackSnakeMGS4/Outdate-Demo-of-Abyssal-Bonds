@@ -27,8 +27,13 @@ public class DeckManager : MonoBehaviour
     private TextMeshProUGUI discard_pile_size_text;
 
     private List<CardObject> current_hand = new List<CardObject>();
+    private PlayerShooting p_shooting;
 
-    //TODO: refactor code so it only used the card scriptable objects
+    private void Awake()
+    {
+        p_shooting = GetComponent<PlayerShooting>();
+    }
+
     public void DrawCard()
     {
         if(deck.Count >= 1) 
@@ -59,6 +64,18 @@ public class DeckManager : MonoBehaviour
         if(current_hand.Count >= 1)
         {
             CardObject card_obj = current_hand[0];
+
+            switch (card_obj.Card.card_type)
+            {
+                case 0:
+                    p_shooting.Shoot(card_obj.Card);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+
             available_card_slots[card_obj.Index] = true;
             card_obj.HideCard();
             discard_pile.Add(card_obj.Card);

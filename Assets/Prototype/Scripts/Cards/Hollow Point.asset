@@ -17,6 +17,7 @@ MonoBehaviour:
     shielded targets
   card_type: 0
   card_art: {fileID: 21300000, guid: c7bf45f0ef95bed4491c5809fc6bf484, type: 3}
-  projectile_type: {fileID: 0}
-  percentage_vs_health: 200
+  projectile_type: {fileID: 3724729113407675906, guid: 3797175ed34fc9048b90169bb37f964b,
+    type: 3}
+  percentage_vs_health: 2
   percentage_vs_shields: 0

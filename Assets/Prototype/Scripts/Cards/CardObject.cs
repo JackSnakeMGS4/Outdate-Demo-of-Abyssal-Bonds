@@ -14,6 +14,8 @@ public class CardObject : MonoBehaviour
     private int hand_index;
     public int Index { set { hand_index = value; } get { return hand_index; } }
 
+    private float speed = 2f;
+
     public void DisplayCard()
     {
         rectTransform = gameObject.GetComponent<RectTransform>();

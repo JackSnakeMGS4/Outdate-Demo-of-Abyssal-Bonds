@@ -69,7 +69,7 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    public void Shoot()
+    public void Shoot(Card card = null)
     {
         if (is_aiming && current_ammo > 0)
         {
@@ -80,11 +80,15 @@ public class PlayerShooting : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             fire_point.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            GameObject projectile = Instantiate(standard_shot, fire_point.position, fire_point.rotation);
-            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-            rb.AddForce(dir * firing_velocity, ForceMode2D.Impulse);
+            GameObject bullet = Instantiate(card == null ? standard_shot : card.projectile_type, 
+                fire_point.position, fire_point.rotation);
+            Debug.Log("Shooting " + card.name);
 
-            projectile.GetComponent<Projectile>().Sprite.sortingLayerName = sprite.sortingLayerName;
+            Projectile projectile = bullet.GetComponent<Projectile>();
+            projectile.ProjectileSettings(sprite.sortingLayerName, 
+                card == null ? 1f : card.percentage_vs_health, 
+                card == null ? 1f : card.percentage_vs_shields, 
+                dir, firing_velocity);
 
             current_ammo--;
 

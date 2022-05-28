@@ -10,21 +10,32 @@ public class Projectile : MonoBehaviour
     private float destroy_self_time = 10f;
     private float percentage_vs_health = 1f;
     private float percentage_vs_shields = 1f;
+    private float default_percentage = 1f;
 
     [SerializeField]
     private GameObject impact_effect;
 
     private SpriteRenderer sprite;
-    public SpriteRenderer Sprite { get { return sprite; } }
+    private Rigidbody2D rb;
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
         Destroy(gameObject, destroy_self_time);
+    }
+
+    public void ProjectileSettings(string sorting_layer, float hp_dmg_percent, float shield_dmg_percent, Vector2 dir, float fire_vel)
+    {
+        sprite.sortingLayerName = sorting_layer;
+        percentage_vs_health = hp_dmg_percent;
+        percentage_vs_shields = shield_dmg_percent;
+
+        rb.AddForce(dir * fire_vel, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
