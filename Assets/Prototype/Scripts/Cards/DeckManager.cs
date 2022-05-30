@@ -85,6 +85,7 @@ public class DeckManager : MonoBehaviour
                 p_shooting.Shoot(card);
                 break;
             case Card_Types.energy_blast:
+                p_shooting.Shoot(card);
                 break;
         }
     }

@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
         player_input_actions.Player.Shoot.performed += HandleShooting;
         player_input_actions.Player.Shoot.Enable();
 
+        player_input_actions.Player.Reload.performed += HandleManualReload;
+        player_input_actions.Player.Reload.Enable();
+
         player_input_actions.Player.Dash.performed += HandleDash;
         player_input_actions.Player.Dash.Enable();
 
@@ -76,6 +79,11 @@ public class PlayerController : MonoBehaviour
     private void HandleShooting(InputAction.CallbackContext obj)
     {
         p_shooting.Shoot();
+    }
+    
+    private void HandleManualReload(InputAction.CallbackContext obj)
+    {
+        p_shooting.ManualReload();
     }
 
     private void HandleSingleCard(InputAction.CallbackContext obj)

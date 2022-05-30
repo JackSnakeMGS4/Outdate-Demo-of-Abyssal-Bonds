@@ -16,9 +16,11 @@ MonoBehaviour:
   description: Most versatile option with a mediocre damage buff and partial penetration
     against shielded targets. It cannot penetrate through multiple targets.
   type: 2
-  card_art: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
+  card_art: {fileID: 21300000, guid: c5df8a0e69140c9409ca28000e045d25, type: 3}
   projectile_type: {fileID: 5994388050920283688, guid: 1aeb78fb4dc400e438dafb73e7c9ce22,
     type: 3}
   percentage_vs_health: 135
   percentage_vs_shields: 140
-  synergies: []
+  synergies:
+  - {fileID: 11400000, guid: 0dde5cab75232544e94fea0baf9d4e9f, type: 2}
+  - {fileID: 11400000, guid: 9f6f49ed6be96514ca40ca507cfdc6fc, type: 2}

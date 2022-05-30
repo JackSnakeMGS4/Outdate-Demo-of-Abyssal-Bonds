@@ -20,3 +20,6 @@ MonoBehaviour:
     type: 3}
   percentage_vs_health: 25
   percentage_vs_shields: 200
+  synergies:
+  - {fileID: 11400000, guid: c6a98648f0106964dae134db9409f70d, type: 2}
+  - {fileID: 11400000, guid: 9f6f49ed6be96514ca40ca507cfdc6fc, type: 2}

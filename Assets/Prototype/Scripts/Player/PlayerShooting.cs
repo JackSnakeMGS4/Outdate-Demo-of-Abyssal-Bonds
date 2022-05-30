@@ -38,6 +38,8 @@ public class PlayerShooting : MonoBehaviour
     private SpriteRenderer player_sprite;
     private SpriteRenderer reticle_sprite;
 
+    private Coroutine current_coroutine;
+
     private void Awake()
     {
         player_sprite = GetComponent<SpriteRenderer>();
@@ -110,17 +112,33 @@ public class PlayerShooting : MonoBehaviour
             if(current_ammo <= 0)
             {
                 Debug.Log("Auto reloading");
-                StartCoroutine(AutoReload());
+                current_coroutine = StartCoroutine(AutoReload());
             } 
+        }
+    }
+
+    public void ManualReload()
+    {
+        if(current_coroutine != null)
+        {
+            Debug.Log("Reload is already happening");
+            return;
+        }
+
+        if(current_ammo < max_ammo)
+        {
+            current_coroutine = StartCoroutine(AutoReload());
         }
     }
 
     IEnumerator AutoReload()
     {
         //effects/animation
+        Debug.Log("Reloading");
         yield return new WaitForSeconds(reload_time);
         Debug.Log("Reload done");
         current_ammo = max_ammo;
+        current_coroutine = null;
     }
 
     //private void OnDrawGizmos()

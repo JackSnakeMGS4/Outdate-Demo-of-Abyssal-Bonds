@@ -23,11 +23,4 @@ MonoBehaviour:
   percentage_vs_shields: 0
   synergies:
   - {fileID: 11400000, guid: bb1f08aff52dde84991bff59dff941de, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9f6f49ed6be96514ca40ca507cfdc6fc, type: 2}
