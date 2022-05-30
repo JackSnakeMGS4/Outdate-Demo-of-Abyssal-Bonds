@@ -6,14 +6,14 @@ public class TargetHealth : MonoBehaviour
 {
     [SerializeField, Range(1f, 1000f)]
     private float max_health = 1;
-    private float current_health;
+    protected float current_health;
     
     [SerializeField, Range(1f, 1000f)]
     private float max_shields = 1;
-    private float current_shields;
+    protected float current_shields;
 
     [SerializeField]
-    private float delay = .3f;
+    private float color_swap_delay = .3f;
     [SerializeField]
     Color hurt_color;
 
@@ -43,12 +43,13 @@ public class TargetHealth : MonoBehaviour
         sprite.color = hurt_color;
         current_health -= damage;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(color_swap_delay);
 
         sprite.color = Color.white;
         if (current_health <= 0)
         {
             gameObject.SetActive(false);
+            StopAllCoroutines();
         }
     }
 
@@ -57,7 +58,7 @@ public class TargetHealth : MonoBehaviour
         sprite.color = Color.blue;
         current_shields -= damage;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(color_swap_delay);
 
         sprite.color = Color.white;
     }

@@ -91,7 +91,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Shuffle/Reload Deck"",
+                    ""name"": ""Shuffle Deck"",
                     ""type"": ""Button"",
                     ""id"": ""a6474396-eb6a-4b73-aac2-ce579dec7567"",
                     ""expectedControlType"": ""Button"",
@@ -115,6 +115,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload Deck"",
+                    ""type"": ""Button"",
+                    ""id"": ""581158ed-c0fa-4423-921d-0d66ce699656"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.6)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -324,7 +333,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shuffle/Reload Deck"",
+                    ""action"": ""Shuffle Deck"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -335,7 +344,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shuffle/Reload Deck"",
+                    ""action"": ""Shuffle Deck"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -382,6 +391,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Use Single Card"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a55b29da-7850-4194-8b62-3f246d5a05ab"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload Deck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6610cb3-b356-4b80-b5b7-ed2af5e2937c"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload Deck"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -397,9 +428,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_StackCards = m_Player.FindAction("Stack Cards", throwIfNotFound: true);
-        m_Player_ShuffleReloadDeck = m_Player.FindAction("Shuffle/Reload Deck", throwIfNotFound: true);
+        m_Player_ShuffleDeck = m_Player.FindAction("Shuffle Deck", throwIfNotFound: true);
         m_Player_UseSalvo = m_Player.FindAction("Use Salvo", throwIfNotFound: true);
         m_Player_UseSingleCard = m_Player.FindAction("Use Single Card", throwIfNotFound: true);
+        m_Player_ReloadDeck = m_Player.FindAction("Reload Deck", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -466,9 +498,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_StackCards;
-    private readonly InputAction m_Player_ShuffleReloadDeck;
+    private readonly InputAction m_Player_ShuffleDeck;
     private readonly InputAction m_Player_UseSalvo;
     private readonly InputAction m_Player_UseSingleCard;
+    private readonly InputAction m_Player_ReloadDeck;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -480,9 +513,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @StackCards => m_Wrapper.m_Player_StackCards;
-        public InputAction @ShuffleReloadDeck => m_Wrapper.m_Player_ShuffleReloadDeck;
+        public InputAction @ShuffleDeck => m_Wrapper.m_Player_ShuffleDeck;
         public InputAction @UseSalvo => m_Wrapper.m_Player_UseSalvo;
         public InputAction @UseSingleCard => m_Wrapper.m_Player_UseSingleCard;
+        public InputAction @ReloadDeck => m_Wrapper.m_Player_ReloadDeck;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -513,15 +547,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @StackCards.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStackCards;
                 @StackCards.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStackCards;
                 @StackCards.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStackCards;
-                @ShuffleReloadDeck.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleReloadDeck;
-                @ShuffleReloadDeck.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleReloadDeck;
-                @ShuffleReloadDeck.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleReloadDeck;
+                @ShuffleDeck.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleDeck;
+                @ShuffleDeck.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleDeck;
+                @ShuffleDeck.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShuffleDeck;
                 @UseSalvo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSalvo;
                 @UseSalvo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSalvo;
                 @UseSalvo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSalvo;
                 @UseSingleCard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSingleCard;
                 @UseSingleCard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSingleCard;
                 @UseSingleCard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseSingleCard;
+                @ReloadDeck.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadDeck;
+                @ReloadDeck.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadDeck;
+                @ReloadDeck.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReloadDeck;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -547,15 +584,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @StackCards.started += instance.OnStackCards;
                 @StackCards.performed += instance.OnStackCards;
                 @StackCards.canceled += instance.OnStackCards;
-                @ShuffleReloadDeck.started += instance.OnShuffleReloadDeck;
-                @ShuffleReloadDeck.performed += instance.OnShuffleReloadDeck;
-                @ShuffleReloadDeck.canceled += instance.OnShuffleReloadDeck;
+                @ShuffleDeck.started += instance.OnShuffleDeck;
+                @ShuffleDeck.performed += instance.OnShuffleDeck;
+                @ShuffleDeck.canceled += instance.OnShuffleDeck;
                 @UseSalvo.started += instance.OnUseSalvo;
                 @UseSalvo.performed += instance.OnUseSalvo;
                 @UseSalvo.canceled += instance.OnUseSalvo;
                 @UseSingleCard.started += instance.OnUseSingleCard;
                 @UseSingleCard.performed += instance.OnUseSingleCard;
                 @UseSingleCard.canceled += instance.OnUseSingleCard;
+                @ReloadDeck.started += instance.OnReloadDeck;
+                @ReloadDeck.performed += instance.OnReloadDeck;
+                @ReloadDeck.canceled += instance.OnReloadDeck;
             }
         }
     }
@@ -569,8 +609,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnStackCards(InputAction.CallbackContext context);
-        void OnShuffleReloadDeck(InputAction.CallbackContext context);
+        void OnShuffleDeck(InputAction.CallbackContext context);
         void OnUseSalvo(InputAction.CallbackContext context);
         void OnUseSingleCard(InputAction.CallbackContext context);
+        void OnReloadDeck(InputAction.CallbackContext context);
     }
 }

@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField, Header("Aiming Fields")]
-    private Sprite reticle;
+    private GameObject reticle;
     [SerializeField, Range(1f, 10f)]
     private float range = 5f;
     [SerializeField]
@@ -19,6 +19,7 @@ public class PlayerShooting : MonoBehaviour
     {
         get { return is_aiming; }
     }
+    private LineRenderer aim_line;
 
     [SerializeField, Header("Projectile Fields")]
     private GameObject standard_shot;
@@ -34,11 +35,18 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI ammo_count_text;
 
-    private SpriteRenderer sprite;
+    private SpriteRenderer player_sprite;
+    private SpriteRenderer reticle_sprite;
+
+    private void Awake()
+    {
+        player_sprite = GetComponent<SpriteRenderer>();
+        aim_line = GetComponent<LineRenderer>();
+        reticle_sprite = reticle.GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
         current_ammo = max_ammo;
     }
 
@@ -56,10 +64,10 @@ public class PlayerShooting : MonoBehaviour
             // Fix direction angle bug; probably have to use mathf.atan for it?
 
             is_aiming = true;
+            aim_line.SetPosition(0, fire_point.position);
             aim_pos = new Vector3(fire_point.position.x + vector2.x * range, fire_point.position.y + vector2.y * range, 0);
-            //draw aiming sprite in input direction in relation to player position and range field
-            //draw line to aim point
-            Debug.DrawLine(fire_point.position, aim_pos, Color.yellow);
+            aim_line.SetPosition(1, aim_pos);
+            //Debug.DrawLine(fire_point.position, aim_pos, Color.yellow);
         }
         else
         {
@@ -67,6 +75,13 @@ public class PlayerShooting : MonoBehaviour
             //fire_point.position = aim_pos;
             is_aiming = false;
         }
+
+        aim_line.sortingLayerName = player_sprite.sortingLayerName;
+        reticle_sprite.sortingLayerName = player_sprite.sortingLayerName;
+
+        reticle.SetActive(is_aiming);
+        aim_line.enabled = is_aiming;
+        reticle.transform.position = aim_pos;
     }
 
     public void Shoot(Card card = null)
@@ -82,13 +97,13 @@ public class PlayerShooting : MonoBehaviour
 
             GameObject bullet = Instantiate(card == null ? standard_shot : card.projectile_type, 
                 fire_point.position, fire_point.rotation);
-            Debug.Log("Shooting " + card.name);
-
+            //Debug.Log("Shooting " + card.name);
+            bullet.layer = gameObject.layer;
             Projectile projectile = bullet.GetComponent<Projectile>();
-            projectile.ProjectileSettings(sprite.sortingLayerName, 
-                card == null ? 1f : card.percentage_vs_health, 
-                card == null ? 1f : card.percentage_vs_shields, 
-                dir, firing_velocity);
+            projectile.ProjectileSettings(player_sprite.sortingLayerName, 
+                card == null ? 100f : card.percentage_vs_health, 
+                card == null ? 100f : card.percentage_vs_shields, 
+                dir, firing_velocity, gameObject.tag);
 
             current_ammo--;
 
@@ -108,12 +123,12 @@ public class PlayerShooting : MonoBehaviour
         current_ammo = max_ammo;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(aim_pos, .2f);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.black;
+    //    Gizmos.DrawWireSphere(aim_pos, .2f);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(fire_point.position, .2f);
-    }
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(fire_point.position, .2f);
+    //}
 }

@@ -37,8 +37,11 @@ public class PlayerController : MonoBehaviour
         player_input_actions.Player.UseSingleCard.performed += HandleSingleCard;
         player_input_actions.Player.UseSingleCard.Enable();
 
-        player_input_actions.Player.ShuffleReloadDeck.performed += HandleDeckShuffle;
-        player_input_actions.Player.ShuffleReloadDeck.Enable();
+        player_input_actions.Player.ShuffleDeck.performed += HandleDeckShuffle;
+        player_input_actions.Player.ShuffleDeck.Enable();
+        
+        player_input_actions.Player.ReloadDeck.performed += HandleDeckReload;
+        player_input_actions.Player.ReloadDeck.Enable();
 
         player_input_actions.Player.StackCards.performed += HandleSalvoDeck;
         player_input_actions.Player.StackCards.Enable();
@@ -83,6 +86,11 @@ public class PlayerController : MonoBehaviour
     private void HandleDeckShuffle(InputAction.CallbackContext obj)
     {
         deckManager.ShuffleDeck();
+    }
+    
+    private void HandleDeckReload(InputAction.CallbackContext obj)
+    {
+        deckManager.ReloadDeck();
     }
 
     private void HandleSalvoDeck(InputAction.CallbackContext obj)

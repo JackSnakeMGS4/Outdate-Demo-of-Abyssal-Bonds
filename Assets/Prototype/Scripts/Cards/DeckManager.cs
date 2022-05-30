@@ -8,8 +8,8 @@ public class DeckManager : MonoBehaviour
 {
     [SerializeField] 
     private List<Card> deck = new List<Card>();
-    [SerializeField] 
     private List<Card> discard_pile = new List<Card>();
+    private List<Card> syngergized_cards = new List<Card>();
 
     [SerializeField]
     private CardObject[] card_slots;
@@ -64,23 +64,28 @@ public class DeckManager : MonoBehaviour
         if(current_hand.Count >= 1)
         {
             CardObject card_obj = current_hand[0];
-
-            switch (card_obj.Card.card_type)
-            {
-                case 0:
-                    p_shooting.Shoot(card_obj.Card);
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
+            CardBasedBehavior(card_obj.Card);
 
             available_card_slots[card_obj.Index] = true;
             card_obj.HideCard();
             discard_pile.Add(card_obj.Card);
             current_hand.Remove(card_obj);
             DrawCard();
+        }
+    }
+
+    private void CardBasedBehavior(Card card)
+    {
+        switch (card.type)
+        {
+            case Card_Types.hollow_point:
+                p_shooting.Shoot(card);
+                break;
+            case Card_Types.laser_shot:
+                p_shooting.Shoot(card);
+                break;
+            case Card_Types.energy_blast:
+                break;
         }
     }
     
@@ -107,7 +112,20 @@ public class DeckManager : MonoBehaviour
                 deck.Add(card);
             }
             discard_pile.Clear();
-            DealNewHand();
+            StartCoroutine(DealNewHand());
+        }
+    }
+
+    public void ReloadDeck()
+    {
+        if(syngergized_cards.Count >= 1)
+        {
+            foreach (Card card in syngergized_cards)
+            {
+                deck.Add(card);
+            }
+            syngergized_cards.Clear();
+            StartCoroutine(DealNewHand());
         }
     }
 
@@ -119,7 +137,7 @@ public class DeckManager : MonoBehaviour
             {
                 if (available_salvo_slots[i])
                 {
-                    CardObject card_obj = current_hand[i];
+                    CardObject card_obj = current_hand[0];
                     available_card_slots[card_obj.Index] = true;
                     card_obj.HideCard();
 
@@ -138,18 +156,23 @@ public class DeckManager : MonoBehaviour
 
     public void UseSalvo()
     {
-        foreach (CardObject card_obj in salvo_slots)
+        foreach (CardObject salvo_card in salvo_slots)
         {
-            if (!available_salvo_slots[card_obj.Index])
+            if (!available_salvo_slots[salvo_card.Index])
             {
-                available_salvo_slots[card_obj.Index] = true;
-                card_obj.HideCard();
-                discard_pile.Add(card_obj.Card);
+                //check each card type and count how many of each are being used
+                //use count of each type and compare to syngery roster
+                //use appropriate syngergy
+
+                CardBasedBehavior(salvo_card.Card);
+                available_salvo_slots[salvo_card.Index] = true;
+                salvo_card.HideCard();
+                syngergized_cards.Add(salvo_card.Card);
             }
         }
     }
 
-    private void DealNewHand()
+    IEnumerator DealNewHand()
     {
         //Deal first set of cards when combat starts (currently done in start for prototype purposes)
         int i = 0;
@@ -157,12 +180,13 @@ public class DeckManager : MonoBehaviour
         {
             DrawCard();
             i++;
+            yield return new WaitForSeconds(.3f);
         }
     }
 
     private void Start()
     {
-        DealNewHand();
+        StartCoroutine(DealNewHand());
     }
 
     private void Update()

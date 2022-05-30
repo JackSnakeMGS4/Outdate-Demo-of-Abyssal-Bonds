@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(Vector2 vector)
     {
-        Debug.Log("Dashing");
+        //Debug.Log("Dashing");
         is_dashing = true;
         rb.AddForce(vector * dash_speed, ForceMode2D.Impulse);
     }

@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shuffle/Reload Deck",
+                    "name": "Shuffle Deck",
                     "type": "Button",
                     "id": "a6474396-eb6a-4b73-aac2-ce579dec7567",
                     "expectedControlType": "Button",
@@ -93,6 +93,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload Deck",
+                    "type": "Button",
+                    "id": "581158ed-c0fa-4423-921d-0d66ce699656",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.6)",
                     "initialStateCheck": false
                 }
             ],
@@ -302,7 +311,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shuffle/Reload Deck",
+                    "action": "Shuffle Deck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -313,7 +322,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shuffle/Reload Deck",
+                    "action": "Shuffle Deck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -358,6 +367,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Use Single Card",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a55b29da-7850-4194-8b62-3f246d5a05ab",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload Deck",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6610cb3-b356-4b80-b5b7-ed2af5e2937c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload Deck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
