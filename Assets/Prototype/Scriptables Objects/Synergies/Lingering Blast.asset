@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e313fae12f952c04bad466e034475aa0, type: 3}
   m_Name: Lingering Blast
   m_EditorClassIdentifier: 
-  card:
+  synergy_behaviour: Deal 100% of energy blast in a 3m zone over 4 seconds
+  salvo: {fileID: 0}
+  required_cards:
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}

@@ -115,6 +115,33 @@ public class PlayerShooting : MonoBehaviour
                 current_coroutine = StartCoroutine(AutoReload());
             } 
         }
+    } 
+    
+    public void Shoot(GameObject salvo)
+    {
+        if (is_aiming && current_ammo > 0)
+        {
+            //shoot projectile in shot direction
+            Vector2 dir = aim_pos - fire_point.position;
+            dir.Normalize();
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            fire_point.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            GameObject bullet = Instantiate(salvo, fire_point.position, fire_point.rotation);
+            //Debug.Log("Shooting " + card.name);
+            bullet.layer = gameObject.layer;
+            Projectile projectile = bullet.GetComponent<Projectile>();
+            projectile.ProjectileSettings(player_sprite.sortingLayerName, 800f, 800f, dir, firing_velocity, gameObject.tag);
+
+            current_ammo = 0;
+
+            if(current_ammo <= 0)
+            {
+                Debug.Log("Auto reloading");
+                current_coroutine = StartCoroutine(AutoReload());
+            } 
+        }
     }
 
     public void ManualReload()

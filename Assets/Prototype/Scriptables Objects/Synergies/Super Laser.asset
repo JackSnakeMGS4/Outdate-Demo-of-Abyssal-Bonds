@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e313fae12f952c04bad466e034475aa0, type: 3}
   m_Name: Super Laser
   m_EditorClassIdentifier: 
-  card:
+  synergy_behaviour: Penetrates all targets in trajectory and deals 100% shield damage
+    X targets penetrated
+  salvo: {fileID: 0}
+  required_cards:
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}

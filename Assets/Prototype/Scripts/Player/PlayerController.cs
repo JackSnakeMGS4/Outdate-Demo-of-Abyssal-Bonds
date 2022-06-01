@@ -14,11 +14,13 @@ public class PlayerController : MonoBehaviour
     private PlayerShooting p_shooting;
 
     private DeckManager deckManager;
+    private Inventory inventory;
 
     private void Awake()
     {
         player_input_actions = new PlayerInputActions();
         deckManager = GetComponent<DeckManager>();
+        inventory = GetComponent<Inventory>();
     }
 
     private void OnEnable()
@@ -51,6 +53,9 @@ public class PlayerController : MonoBehaviour
 
         player_input_actions.Player.UseSalvo.performed += HandleSalvo;
         player_input_actions.Player.UseSalvo.Enable();
+
+        player_input_actions.Player.Interact.performed += HandleInteraction;
+        player_input_actions.Player.Interact.Enable();
     }
 
     private void OnDisable()
@@ -114,5 +119,10 @@ public class PlayerController : MonoBehaviour
     private void HandleDash(InputAction.CallbackContext obj)
     {
         p_movement.Dash(movement.ReadValue<Vector2>());
+    }
+
+    private void HandleInteraction(InputAction.CallbackContext obj)
+    {
+
     }
 }

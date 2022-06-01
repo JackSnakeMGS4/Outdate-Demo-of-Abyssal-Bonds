@@ -5,5 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Synergy", menuName = "ScriptableObjects/New Synergy", order = 2)]
 public class Synergy : ScriptableObject
 {
-    public Card[] card = new Card[3];
+    [TextArea]
+    public string synergy_behaviour;
+
+    public GameObject salvo;
+
+    public Card[] required_cards = new Card[3];
 }

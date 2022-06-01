@@ -157,19 +157,49 @@ public class DeckManager : MonoBehaviour
 
     public void UseSalvo()
     {
-        foreach (CardObject salvo_card in salvo_slots)
+        Synergy possible_synergy = null;
+        if (salvo_slots[0].gameObject.activeSelf && salvo_slots[1].gameObject.activeSelf && salvo_slots[2].gameObject.activeSelf)
         {
-            if (!available_salvo_slots[salvo_card.Index])
+            foreach (Synergy synergy in salvo_slots[0].Card.synergies)
             {
-                //check each card type and count how many of each are being used
-                //use count of each type and compare to syngery roster
-                //use appropriate syngergy
+                possible_synergy = synergy;
+                for (int i = 0; i < salvo_slots.Length; i++)
+                {
+                    if (salvo_slots[i].Card != possible_synergy.required_cards[i])
+                    {
+                        Debug.Log(salvo_slots[i].Card);
+                        Debug.Log(possible_synergy.required_cards[i]);
 
-                CardBasedBehavior(salvo_card.Card);
-                available_salvo_slots[salvo_card.Index] = true;
-                salvo_card.HideCard();
-                syngergized_cards.Add(salvo_card.Card);
+                        possible_synergy = null;
+                        break;
+                    }
+                }
             }
+
+            foreach (CardObject salvo_card in salvo_slots)
+            {
+                if (!available_salvo_slots[salvo_card.Index])
+                {
+                    //check each card type and count how many of each are being used
+                    //use count of each type and compare to syngery roster
+                    //use appropriate syngergy
+
+                    if (possible_synergy == null)
+                    {
+                        CardBasedBehavior(salvo_card.Card);
+                    }
+
+                    available_salvo_slots[salvo_card.Index] = true;
+                    salvo_card.HideCard();
+                    syngergized_cards.Add(salvo_card.Card);
+                }
+            }
+        }
+
+        if (possible_synergy != null)
+        {
+            Debug.Log(possible_synergy.synergy_behaviour);
+            p_shooting.Shoot(possible_synergy.salvo);
         }
     }
 
