@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInputActions player_input_actions;
+    private PlayerInput player_input;
+    private PlayerControls player_controls;
     private InputAction movement;
     private InputAction aim;
 
@@ -16,53 +18,45 @@ public class PlayerController : MonoBehaviour
     private DeckManager deckManager;
     private Inventory inventory;
 
+    [SerializeField]
+    private bool is_gamepad;
+
     private void Awake()
     {
-        player_input_actions = new PlayerInputActions();
+        player_controls = new PlayerControls();
+        player_input = GetComponent<PlayerInput>();
         deckManager = GetComponent<DeckManager>();
         inventory = GetComponent<Inventory>();
     }
 
     private void OnEnable()
     {
-        movement = player_input_actions.Player.Movement;
-        movement.Enable();
-        aim = player_input_actions.Player.Aim;
-        aim.Enable();
+        player_controls.Enable();
+        movement = player_controls.Player.Movement;
+        aim = player_controls.Player.Aim;
 
-        player_input_actions.Player.Shoot.performed += HandleShooting;
-        player_input_actions.Player.Shoot.Enable();
+        player_controls.Player.Shoot.performed += HandleShooting;
 
-        player_input_actions.Player.Reload.performed += HandleManualReload;
-        player_input_actions.Player.Reload.Enable();
+        player_controls.Player.Reload.performed += HandleManualReload;
 
-        player_input_actions.Player.Dash.performed += HandleDash;
-        player_input_actions.Player.Dash.Enable();
+        player_controls.Player.Dash.performed += HandleDash;
 
-        player_input_actions.Player.UseSingleCard.performed += HandleSingleCard;
-        player_input_actions.Player.UseSingleCard.Enable();
+        player_controls.Player.UseSingleCard.performed += HandleSingleCard;
 
-        player_input_actions.Player.ShuffleDeck.performed += HandleDeckShuffle;
-        player_input_actions.Player.ShuffleDeck.Enable();
+        player_controls.Player.ShuffleDeck.performed += HandleDeckShuffle;
         
-        player_input_actions.Player.ReloadDeck.performed += HandleDeckReload;
-        player_input_actions.Player.ReloadDeck.Enable();
+        player_controls.Player.ReloadDeck.performed += HandleDeckReload;
 
-        player_input_actions.Player.StackCards.performed += HandleSalvoDeck;
-        player_input_actions.Player.StackCards.Enable();
+        player_controls.Player.StackCards.performed += HandleSalvoDeck;
 
-        player_input_actions.Player.UseSalvo.performed += HandleSalvo;
-        player_input_actions.Player.UseSalvo.Enable();
+        player_controls.Player.UseSalvo.performed += HandleSalvo;
 
-        player_input_actions.Player.Interact.performed += HandleInteraction;
-        player_input_actions.Player.Interact.Enable();
+        player_controls.Player.Interact.performed += HandleInteraction;
     }
 
     private void OnDisable()
     {
-        movement.Disable();
-        aim.Disable();
-        player_input_actions.Player.Shoot.Disable();
+        player_controls.Disable();
     }
 
     private void Start()
@@ -73,12 +67,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        p_shooting.AimCursor(aim.ReadValue<Vector2>());
+        //Debug.Log(aim.phase);
+        //TODO: limit mouse aiming to range; only call when mouse has moved (gamepad should still work normally)
+        p_shooting.AimCursor(aim.ReadValue<Vector2>(), is_gamepad);
     }
 
     private void FixedUpdate()
     {
         p_movement.Move(movement.ReadValue<Vector2>(), p_shooting.Is_Aiming);
+    }
+
+    public void OnDeviceChange(PlayerInput pI)
+    {
+        is_gamepad = pI.currentControlScheme.Equals("Gamepad") ? true : false;
     }
 
     private void HandleShooting(InputAction.CallbackContext obj)
@@ -123,6 +124,18 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteraction(InputAction.CallbackContext obj)
     {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f);
 
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag("Interactable"))
+            {
+                Interactable interactable = colliders[i].GetComponent<Interactable>();
+                foreach (Keys key in inventory.My_Keys)
+                {
+                    interactable.Interact(key);
+                }
+            }
+        }
     }
 }

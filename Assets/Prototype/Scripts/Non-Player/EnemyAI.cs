@@ -127,4 +127,9 @@ public class EnemyAI: MonoBehaviour
             current_waypoint++;
         }
     }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
+    }
 }

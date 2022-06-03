@@ -18,6 +18,7 @@ public class PlayerShooting : MonoBehaviour
     public bool Is_Aiming
     {
         get { return is_aiming; }
+        set { is_aiming = value; }
     }
     private LineRenderer aim_line;
 
@@ -40,6 +41,8 @@ public class PlayerShooting : MonoBehaviour
 
     private Coroutine current_coroutine;
 
+    private Camera main;
+
     private void Awake()
     {
         player_sprite = GetComponent<SpriteRenderer>();
@@ -49,27 +52,46 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
+        main = Camera.main;
         current_ammo = max_ammo;
     }
 
     private void Update()
     {
         ammo_count_text.text = "Ammo: " + current_ammo.ToString();
+        DrawCursor();
     }
 
-    public void AimCursor(Vector2 vector2)
+    private void DrawCursor()
     {
-        //NOTE: needs to be handled differently for mouse
+        aim_line.sortingLayerName = player_sprite.sortingLayerName;
+        reticle_sprite.sortingLayerName = player_sprite.sortingLayerName;
+
+        reticle.transform.position = aim_pos;
+        reticle.SetActive(is_aiming);
+        aim_line.enabled = is_aiming;
+    }
+
+    public void AimCursor(Vector2 vector2, bool is_gamepad)
+    {
         //Debug.Log(vector2);
-        if (vector2.magnitude > 0.01f)
+
+        if (vector2.magnitude > 0.01f && is_gamepad)
         {
             // Fix direction angle bug; probably have to use mathf.atan for it?
 
-            is_aiming = true;
             aim_line.SetPosition(0, fire_point.position);
             aim_pos = new Vector3(fire_point.position.x + vector2.x * range, fire_point.position.y + vector2.y * range, 0);
             aim_line.SetPosition(1, aim_pos);
-            //Debug.DrawLine(fire_point.position, aim_pos, Color.yellow);
+            is_aiming = true;
+        }
+        else if (!is_gamepad)
+        {
+            Vector3 pos = main.ScreenToWorldPoint(vector2);
+            aim_line.SetPosition(0, fire_point.position);
+            aim_pos = new Vector3(pos.x, pos.y, pos.z);
+            aim_line.SetPosition(1, aim_pos);
+            is_aiming = true;
         }
         else
         {
@@ -77,13 +99,6 @@ public class PlayerShooting : MonoBehaviour
             //fire_point.position = aim_pos;
             is_aiming = false;
         }
-
-        aim_line.sortingLayerName = player_sprite.sortingLayerName;
-        reticle_sprite.sortingLayerName = player_sprite.sortingLayerName;
-
-        reticle.SetActive(is_aiming);
-        aim_line.enabled = is_aiming;
-        reticle.transform.position = aim_pos;
     }
 
     public void Shoot(Card card = null)

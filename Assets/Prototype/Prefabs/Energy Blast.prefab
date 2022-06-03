@@ -9,6 +9,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6824944484502726945, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6824944484502726945, guid: 363e98697a5d5574eba6803f420ca7bc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: -6824944484502726945, guid: 363e98697a5d5574eba6803f420ca7bc,
+        type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.32
       objectReference: {fileID: 0}
@@ -91,7 +101,7 @@ PrefabInstance:
     - target: {fileID: 87805860763390870, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
       propertyPath: m_Name
-      value: Energy Blast 1
+      value: Energy Blast
       objectReference: {fileID: 0}
     - target: {fileID: 5738174587730389846, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}

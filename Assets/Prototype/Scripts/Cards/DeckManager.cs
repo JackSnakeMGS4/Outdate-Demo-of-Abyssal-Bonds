@@ -215,9 +215,32 @@ public class DeckManager : MonoBehaviour
         }
     }
 
+    private void HighlightFirstCard()
+    {
+        if(current_hand.Count > 0)
+        {
+            if (current_hand[0].isActiveAndEnabled)
+            {
+                Image img = current_hand[0].gameObject.GetComponent<Image>();
+                StartCoroutine(FlashCard(img));
+            }
+        }
+    }
+
+    IEnumerator FlashCard(Image image)
+    {
+        Color color = image.color;
+        color.a = .7f;
+        image.color = color;
+        yield return new WaitForSeconds(.5f);
+        color.a = 1f;
+        image.color = color;
+    }
+
     private void Start()
     {
         StartCoroutine(DealNewHand());
+        InvokeRepeating("HighlightFirstCard", 1f, 1f);
     }
 
     private void Update()
