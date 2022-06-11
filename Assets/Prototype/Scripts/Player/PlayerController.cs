@@ -11,29 +11,44 @@ public class PlayerController : MonoBehaviour
     private PlayerControls player_controls;
     private InputAction movement;
     private InputAction aim;
+    private InputAction mouse_aim;
 
     private PlayerMovement p_movement;
     private PlayerShooting p_shooting;
 
-    private DeckManager deckManager;
+    private DeckManager deck_manager;
     private Inventory inventory;
 
     [SerializeField]
     private bool is_gamepad;
+    [SerializeField]
+    private PauseManager pause_manager;
 
     private void Awake()
     {
         player_controls = new PlayerControls();
         player_input = GetComponent<PlayerInput>();
-        deckManager = GetComponent<DeckManager>();
+        deck_manager = GetComponent<DeckManager>();
         inventory = GetComponent<Inventory>();
     }
 
     private void OnEnable()
     {
-        player_controls.Enable();
+        player_controls.Player.Enable();
+        AssignPlayerControls();
+        AssignMenuControls();
+    }
+
+    private void AssignMenuControls()
+    {
+        //player_controls.Menu.ExitMenu.performed += _ => HandlePause();
+    }
+
+    private void AssignPlayerControls()
+    {
         movement = player_controls.Player.Movement;
         aim = player_controls.Player.Aim;
+        mouse_aim = player_controls.Player.MouseAim;
 
         player_controls.Player.Shoot.performed += HandleShooting;
 
@@ -44,7 +59,7 @@ public class PlayerController : MonoBehaviour
         player_controls.Player.UseSingleCard.performed += HandleSingleCard;
 
         player_controls.Player.ShuffleDeck.performed += HandleDeckShuffle;
-        
+
         player_controls.Player.ReloadDeck.performed += HandleDeckReload;
 
         player_controls.Player.StackCards.performed += HandleSalvoDeck;
@@ -52,11 +67,29 @@ public class PlayerController : MonoBehaviour
         player_controls.Player.UseSalvo.performed += HandleSalvo;
 
         player_controls.Player.Interact.performed += HandleInteraction;
+
+        player_controls.Player.PauseGame.performed += _ => HandlePause();
+    }
+
+    public void HandlePause()
+    {
+        if (PauseManager.is_paused)
+        {
+            player_controls.Menu.Disable();
+            player_controls.Player.Enable();
+        }
+        else
+        {
+            player_controls.Player.Disable();
+            player_controls.Menu.Enable();
+        }
+
+        pause_manager.DeterminePause();
     }
 
     private void OnDisable()
     {
-        player_controls.Disable();
+        player_controls.Player.Disable();
     }
 
     private void Start()
@@ -67,9 +100,28 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(aim.phase);
-        //TODO: limit mouse aiming to range; only call when mouse has moved (gamepad should still work normally)
-        p_shooting.AimCursor(aim.ReadValue<Vector2>(), is_gamepad);
+        HandleMouseAim();
+    }
+
+    private void HandleMouseAim()
+    {
+        if (is_gamepad)
+        {
+            p_shooting.AimCursor(aim.ReadValue<Vector2>());
+        }
+        else
+        {
+            //Debug.Log(mouse_aim.phase);
+            if (mouse_aim.phase == InputActionPhase.Started || mouse_aim.phase == InputActionPhase.Performed)
+            {
+                p_shooting.AimCursorWithMouse(mouse_aim.ReadValue<Vector2>());
+                p_shooting.Is_Aiming = true;
+            }
+            if (mouse_aim.phase == InputActionPhase.Waiting || mouse_aim.phase == InputActionPhase.Canceled)
+            {
+                p_shooting.Is_Aiming = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -94,33 +146,35 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSingleCard(InputAction.CallbackContext obj)
     {
-        deckManager.UseCard();
+        if(p_shooting.Is_Aiming)
+            deck_manager.UseCard();
     }
 
     private void HandleDeckShuffle(InputAction.CallbackContext obj)
     {
-        deckManager.ShuffleDeck();
+        deck_manager.ShuffleDeck();
     }
     
     private void HandleDeckReload(InputAction.CallbackContext obj)
     {
-        deckManager.ReloadDeck();
+        deck_manager.ReloadDeck();
     }
 
     private void HandleSalvoDeck(InputAction.CallbackContext obj)
     {
-        deckManager.AddToSalvo();
+        deck_manager.AddToSalvo();
     }
 
     private void HandleSalvo(InputAction.CallbackContext obj)
     {
-        deckManager.UseSalvo();
+        if(p_shooting.Is_Aiming)
+            deck_manager.UseSalvo();
     }
 
     private void HandleDash(InputAction.CallbackContext obj)
     {
         p_movement.Dash(movement.ReadValue<Vector2>());
-    }
+    } 
 
     private void HandleInteraction(InputAction.CallbackContext obj)
     {

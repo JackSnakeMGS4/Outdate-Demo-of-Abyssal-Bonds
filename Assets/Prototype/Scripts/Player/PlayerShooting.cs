@@ -58,7 +58,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        ammo_count_text.text = "Ammo: " + current_ammo.ToString();
+        if(current_coroutine == null)
+        {
+            ammo_count_text.text = "Ammo: " + current_ammo.ToString();
+        }
         DrawCursor();
     }
 
@@ -72,24 +75,16 @@ public class PlayerShooting : MonoBehaviour
         aim_line.enabled = is_aiming;
     }
 
-    public void AimCursor(Vector2 vector2, bool is_gamepad)
+    public void AimCursor(Vector2 vector2)
     {
         //Debug.Log(vector2);
 
-        if (vector2.magnitude > 0.01f && is_gamepad)
+        if (vector2.magnitude > 0.01f)
         {
             // Fix direction angle bug; probably have to use mathf.atan for it?
 
             aim_line.SetPosition(0, fire_point.position);
             aim_pos = new Vector3(fire_point.position.x + vector2.x * range, fire_point.position.y + vector2.y * range, 0);
-            aim_line.SetPosition(1, aim_pos);
-            is_aiming = true;
-        }
-        else if (!is_gamepad)
-        {
-            Vector3 pos = main.ScreenToWorldPoint(vector2);
-            aim_line.SetPosition(0, fire_point.position);
-            aim_pos = new Vector3(pos.x, pos.y, pos.z);
             aim_line.SetPosition(1, aim_pos);
             is_aiming = true;
         }
@@ -99,6 +94,15 @@ public class PlayerShooting : MonoBehaviour
             //fire_point.position = aim_pos;
             is_aiming = false;
         }
+    }
+
+    public void AimCursorWithMouse(Vector2 vector2)
+    {
+        Vector3 pos = main.ScreenToWorldPoint(vector2);
+        aim_line.SetPosition(0, fire_point.position);
+        aim_pos = new Vector3(pos.x, pos.y, pos.z);
+        aim_line.SetPosition(1, aim_pos);
+        //is_aiming = true;
     }
 
     public void Shoot(Card card = null)
@@ -176,9 +180,11 @@ public class PlayerShooting : MonoBehaviour
     IEnumerator AutoReload()
     {
         //effects/animation
-        Debug.Log("Reloading");
+        //Debug.Log("Reloading");
+        ammo_count_text.text = "Reloading";
+
         yield return new WaitForSeconds(reload_time);
-        Debug.Log("Reload done");
+        //Debug.Log("Reload done");
         current_ammo = max_ammo;
         current_coroutine = null;
     }
