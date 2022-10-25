@@ -217,7 +217,7 @@ public class DeckManager : MonoBehaviour
 
     private void HighlightFirstCard()
     {
-        if(current_hand.Count > 0)
+        if(gameObject.activeSelf && current_hand.Count > 0)
         {
             if (current_hand[0].isActiveAndEnabled)
             {

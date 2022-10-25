@@ -519,6 +519,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""28bbfe5a-fe40-4ae6-84a2-9ad45c86a6e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -730,6 +739,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c0b8a4f-30c0-4763-b563-fd1bdab2d390"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Exit Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37a49d7b-392f-4d56-bb81-ffd396e8ad12"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Exit Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -784,6 +815,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Menu_Navigation = m_Menu.FindAction("Navigation", throwIfNotFound: true);
         m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
         m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
+        m_Menu_ExitMenu = m_Menu.FindAction("Exit Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -975,6 +1007,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Navigation;
     private readonly InputAction m_Menu_Submit;
     private readonly InputAction m_Menu_Cancel;
+    private readonly InputAction m_Menu_ExitMenu;
     public struct MenuActions
     {
         private @PlayerControls m_Wrapper;
@@ -982,6 +1015,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Navigation => m_Wrapper.m_Menu_Navigation;
         public InputAction @Submit => m_Wrapper.m_Menu_Submit;
         public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
+        public InputAction @ExitMenu => m_Wrapper.m_Menu_ExitMenu;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1000,6 +1034,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Cancel.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
                 @Cancel.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
                 @Cancel.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnCancel;
+                @ExitMenu.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnExitMenu;
+                @ExitMenu.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnExitMenu;
+                @ExitMenu.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnExitMenu;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -1013,6 +1050,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Cancel.started += instance.OnCancel;
                 @Cancel.performed += instance.OnCancel;
                 @Cancel.canceled += instance.OnCancel;
+                @ExitMenu.started += instance.OnExitMenu;
+                @ExitMenu.performed += instance.OnExitMenu;
+                @ExitMenu.canceled += instance.OnExitMenu;
             }
         }
     }
@@ -1056,5 +1096,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnNavigation(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnExitMenu(InputAction.CallbackContext context);
     }
 }
