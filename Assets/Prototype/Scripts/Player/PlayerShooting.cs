@@ -45,7 +45,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
-        player_sprite = GetComponent<SpriteRenderer>();
+        player_sprite = GetComponentInChildren<SpriteRenderer>();
         aim_line = GetComponent<LineRenderer>();
         reticle_sprite = reticle.GetComponent<SpriteRenderer>();
     }
