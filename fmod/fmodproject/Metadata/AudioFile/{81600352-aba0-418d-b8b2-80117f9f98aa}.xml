@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{81600352-aba0-418d-b8b2-80117f9f98aa}">
+		<property name="assetPath">
+			<value>Gregor Quendel - Designed Sci-Fi - MusicOfTheSpheres_PrettyScape.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>16.183375000000002</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c8e47098-265b-433a-ac18-f60d027d0dfc}</destination>
+		</relationship>
+	</object>
+</objects>

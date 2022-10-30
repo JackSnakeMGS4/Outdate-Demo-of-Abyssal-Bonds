@@ -21,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+    private SpriteRenderer sprite;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         dash_time = startDashTime;
     }
 
@@ -49,10 +51,18 @@ public class PlayerMovement : MonoBehaviour
             float horizontal_axis = vector2.x * (is_aiming ? acceleration_aiming : acceleration);
             float vertical_axis = vector2.y * (is_aiming ? acceleration_aiming : acceleration);
 
-            if (horizontal_axis > 0) animator.SetInteger("Direction", 2);
-            if (horizontal_axis < 0) animator.SetInteger("Direction", 3);
-            if (vertical_axis > 0) animator.SetInteger("Direction", 1);
-            if (vertical_axis < 0) animator.SetInteger("Direction", 0);
+            if (horizontal_axis > 0)
+            {
+                //animator.SetInteger("Direction", 2);
+                sprite.flipX = false;
+            }
+            if (horizontal_axis < 0)
+            {
+                //animator.SetInteger("Direction", 3);
+                sprite.flipX = true;
+            }
+            //if (vertical_axis > 0) animator.SetInteger("Direction", 1);
+            //if (vertical_axis < 0) animator.SetInteger("Direction", 0);
 
             //limit movement speed to max speed
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{fcce6e2a-87b2-4993-8da9-3ffa28a496c7}">
+		<property name="assetPath">
+			<value>Gregor Quendel - Designed Atmospheres - Harmonic - 015.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>49.998729166666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c8e47098-265b-433a-ac18-f60d027d0dfc}</destination>
+		</relationship>
+	</object>
+</objects>

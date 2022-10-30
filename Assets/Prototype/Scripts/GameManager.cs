@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private GameObject player;
 
+    [SerializeField]
+    private int enemies_left_before_boss;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{1ef466cf-9d22-44bf-bcd3-2c6326f43acc}">
+		<property name="name">
+			<value>Random Ambience</value>
+		</property>
+		<relationship name="folder">
+			<destination>{a669a412-3d7f-421f-a9b6-7f83edd460ee}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{1ae08fcd-7674-467b-8173-efd3ef1584a8}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{1ae08fcd-7674-467b-8173-efd3ef1584a8}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

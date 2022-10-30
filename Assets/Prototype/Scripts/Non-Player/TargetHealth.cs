@@ -21,7 +21,7 @@ public class TargetHealth : MonoBehaviour
 
     private void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         current_health = max_health;
         current_shields = max_shields;
     }

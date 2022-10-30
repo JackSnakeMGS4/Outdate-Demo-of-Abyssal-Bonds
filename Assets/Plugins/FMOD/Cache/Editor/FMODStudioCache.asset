@@ -1,5 +1,110 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8403842023077497057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/shot_impact/Rapid Fire
+  m_EditorClassIdentifier: 
+  Name: Rapid Fire
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3164236612
+    data2: 399381721
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6447130635262969831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/detected_by_enemy
+  m_EditorClassIdentifier: 
+  Path: event:/detected_by_enemy
+  Guid:
+    Data1: -1908256055
+    Data2: 1289467246
+    Data3: -261527406
+    Data4: 655415538
+  Banks:
+  - {fileID: -1967055476783807438}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2500
+--- !u!114 &-3697930508575257704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience 1
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience 1
+  Guid:
+    Data1: -467458395
+    Data2: 1312639059
+    Data3: 1377860498
+    Data4: -1117165402
+  Banks:
+  - {fileID: -1967055476783807438}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 153493
+--- !u!114 &-2562995344597103434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/death
+  m_EditorClassIdentifier: 
+  Path: event:/death
+  Guid:
+    Data1: 1887224676
+    Data2: 1080294057
+    Data3: -588854121
+    Data4: -734526025
+  Banks:
+  - {fileID: -1967055476783807438}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3168
 --- !u!114 &-1967055476783807438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,10 +120,10 @@ MonoBehaviour:
   Path: fmod/fmodproject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638023062353743385
+  lastModified: 638026890097019070
   FileSizes:
   - Name: Desktop
-    Value: 1000
+    Value: 1774240
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -35,13 +140,18 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 1422649924065898897}
   - {fileID: -1967055476783807438}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: -2562995344597103434}
+  - {fileID: 7430425063122579208}
+  - {fileID: -3697930508575257704}
+  - {fileID: 7273641414668648614}
+  - {fileID: -6447130635262969831}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1967055476783807438}
   StringsBanks:
   - {fileID: 1422649924065898897}
-  cacheTime: 638023062353753060
+  cacheTime: 638026890097028928
   cacheVersion: 131593
 --- !u!114 &1422649924065898897
 MonoBehaviour:
@@ -58,8 +168,63 @@ MonoBehaviour:
   Path: fmod/fmodproject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638023062353753060
+  lastModified: 638026890097028928
   FileSizes:
   - Name: Desktop
-    Value: 688
+    Value: 1114
   Exists: 1
+--- !u!114 &7273641414668648614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/shot_impact
+  m_EditorClassIdentifier: 
+  Path: event:/shot_impact
+  Guid:
+    Data1: -1818362442
+    Data2: 1167902944
+    Data3: 1737296820
+    Data4: -213117721
+  Banks:
+  - {fileID: -1967055476783807438}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -8403842023077497057}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
+--- !u!114 &7430425063122579208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/idle_enemy
+  m_EditorClassIdentifier: 
+  Path: event:/idle_enemy
+  Guid:
+    Data1: 1494705011
+    Data2: 1117628625
+    Data3: -1855543381
+    Data4: 1785983532
+  Banks:
+  - {fileID: -1967055476783807438}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1004

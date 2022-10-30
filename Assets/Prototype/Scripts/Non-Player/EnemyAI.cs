@@ -22,9 +22,12 @@ public class EnemyAI: MonoBehaviour
     private Path path;
     private int current_waypoint = 0;
     private bool reached_end_of_path = false;
+    private bool is_chasing = false;
 
     private Seeker seeker;
     private Rigidbody2D rb;
+    private SpriteRenderer sprite;
+    private Animator animator;
 
     private EnemyShooting e_shooting;
 
@@ -33,7 +36,8 @@ public class EnemyAI: MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         e_shooting = GetComponent<EnemyShooting>();
-
+        animator = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -48,12 +52,6 @@ public class EnemyAI: MonoBehaviour
         {
             seeker.StartPath(rb.position, PickRandomPoint(), OnPathComplete);
         }
-
-        if (IsTargetInRange())
-        {
-            CancelInvoke("UpdatePath");
-            InvokeRepeating("ChaseTarget", 0f, .5f);
-        }
     }
 
     private void ChaseTarget()
@@ -67,6 +65,7 @@ public class EnemyAI: MonoBehaviour
 
         if (!IsTargetInRange())
         {
+            is_chasing = false;
             CancelInvoke("ChaseTarget");
             InvokeRepeating("UpdatePath", 0f, wander_rate);
         }
@@ -117,6 +116,15 @@ public class EnemyAI: MonoBehaviour
         }
 
         Vector2 dir = ((Vector2)path.vectorPath[current_waypoint] - rb.position).normalized;
+        if(dir.x > 0)
+        {
+            sprite.flipX = false;
+        }
+        if(dir.x < 0)
+        {
+            sprite.flipX = true;
+        }
+        //Debug.Log(dir);
         Vector2 force = dir * acceleration;
 
         rb.AddForce(force);
@@ -128,8 +136,26 @@ public class EnemyAI: MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //Debug.Log(rb.velocity.magnitude);
+        animator.SetBool("IsMoving", rb.velocity.magnitude > 0);
+
+        if (IsTargetInRange() && !is_chasing)
+        {
+            is_chasing = true;
+            CancelInvoke("UpdatePath");
+            InvokeRepeating("ChaseTarget", 0f, 1f);
+        }
+    }
+
     private void OnDisable()
     {
         CancelInvoke();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aggro_range);
     }
 }

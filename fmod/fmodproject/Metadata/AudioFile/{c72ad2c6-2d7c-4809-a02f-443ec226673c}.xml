@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{c72ad2c6-2d7c-4809-a02f-443ec226673c}">
+		<property name="assetPath">
+			<value>Gregor Quendel - Designed Fire - Impacts - Complex 04.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.1684895833333333</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c8e47098-265b-433a-ac18-f60d027d0dfc}</destination>
+		</relationship>
+	</object>
+</objects>

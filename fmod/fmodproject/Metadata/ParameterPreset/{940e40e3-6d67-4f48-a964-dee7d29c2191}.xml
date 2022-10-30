@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{940e40e3-6d67-4f48-a964-dee7d29c2191}">
+		<property name="name">
+			<value>Rapid Fire</value>
+		</property>
+		<relationship name="folder">
+			<destination>{a669a412-3d7f-421f-a9b6-7f83edd460ee}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5df2cb49-a9d2-4b02-b3d8-361902423b99}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5df2cb49-a9d2-4b02-b3d8-361902423b99}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
