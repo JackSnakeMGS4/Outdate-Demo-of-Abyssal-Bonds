@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Lingering Blast
   m_EditorClassIdentifier: 
   synergy_behaviour: Deal 100% of energy blast in a 3m zone over 4 seconds
-  salvo: {fileID: 0}
+  salvo: {fileID: 7494048314517640408, guid: d73c24e0e7cdffe47844b6104d50cebe, type: 3}
   required_cards:
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}
   - {fileID: 11400000, guid: 5ee340240a2a6334bbcdccd97c85e5f0, type: 2}
+  percent_vs_HP: 900
+  percent_vs_SHI: 900

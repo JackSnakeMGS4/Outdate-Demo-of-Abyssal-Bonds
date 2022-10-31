@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerMovement p_movement;
     private PlayerShooting p_shooting;
+    private PlayerHealth p_health;
 
     private DeckManager deck_manager;
     private Inventory inventory;
@@ -69,6 +70,9 @@ public class PlayerController : MonoBehaviour
         player_controls.Player.Interact.performed += HandleInteraction;
 
         player_controls.Player.PauseGame.performed += _ => HandlePause();
+
+        player_controls.Player.RechargeShield.performed += HandleShieldRegen;
+        player_controls.Player.DiscardCard.performed += HandleDiscard;
     }
 
     public void HandlePause()
@@ -96,6 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         p_movement = GetComponent<PlayerMovement>();
         p_shooting = GetComponent<PlayerShooting>();
+        p_health = GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -150,6 +155,11 @@ public class PlayerController : MonoBehaviour
             deck_manager.UseCard();
     }
 
+    private void HandleDiscard(InputAction.CallbackContext obj)
+    {
+        deck_manager.DiscardCard();
+    }
+
     private void HandleDeckShuffle(InputAction.CallbackContext obj)
     {
         deck_manager.ShuffleDeck();
@@ -174,7 +184,12 @@ public class PlayerController : MonoBehaviour
     private void HandleDash(InputAction.CallbackContext obj)
     {
         p_movement.Dash(movement.ReadValue<Vector2>());
-    } 
+    }
+
+    private void HandleShieldRegen(InputAction.CallbackContext obj)
+    {
+        p_health.RechargeShield();
+    }
 
     private void HandleInteraction(InputAction.CallbackContext obj)
     {

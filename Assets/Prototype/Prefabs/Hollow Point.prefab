@@ -96,12 +96,17 @@ PrefabInstance:
     - target: {fileID: 87805860763390870, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
       propertyPath: m_Name
-      value: Hollow Point Shot
+      value: Hollow Point
       objectReference: {fileID: 0}
     - target: {fileID: 5738174587730389846, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: bfa1f197800da41f29dee560ee391cae, type: 2}
+    - target: {fileID: 9078842416338990363, guid: 363e98697a5d5574eba6803f420ca7bc,
+        type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363e98697a5d5574eba6803f420ca7bc, type: 3}

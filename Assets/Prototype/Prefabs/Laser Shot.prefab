@@ -91,12 +91,17 @@ PrefabInstance:
     - target: {fileID: 87805860763390870, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
       propertyPath: m_Name
-      value: Laser Shot 1
+      value: Laser Shot
       objectReference: {fileID: 0}
     - target: {fileID: 5738174587730389846, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a767d342f70a54806ade1a7245b9aa18, type: 2}
+    - target: {fileID: 9078842416338990363, guid: 363e98697a5d5574eba6803f420ca7bc,
+        type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363e98697a5d5574eba6803f420ca7bc, type: 3}

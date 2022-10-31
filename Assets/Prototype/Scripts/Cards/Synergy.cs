@@ -11,4 +11,7 @@ public class Synergy : ScriptableObject
     public GameObject salvo;
 
     public Card[] required_cards = new Card[3];
+
+    public float percent_vs_HP;
+    public float percent_vs_SHI;
 }

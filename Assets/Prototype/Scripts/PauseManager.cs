@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class PauseManager : MonoBehaviour
 {
@@ -34,5 +35,20 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1;
         is_paused = false;
+    }
+
+    public void MasterBusVol()
+    {
+
+    }
+
+    public void MusicBusVol()
+    {
+
+    }
+    
+    public void SoundBusVol()
+    {
+
     }
 }

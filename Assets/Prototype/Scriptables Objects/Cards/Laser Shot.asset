@@ -15,10 +15,10 @@ MonoBehaviour:
   name: Laser Shot
   description: Excels against shielded targets. It can also penetrate multiple targets.
   type: 1
-  card_art: {fileID: 21300000, guid: 5915cdc174101e540b3349e21ee2cd74, type: 3}
+  card_art: {fileID: 21300000, guid: cf9760a2dafc94f97b705a62ec67e9ff, type: 3}
   projectile_type: {fileID: 9175854959784306916, guid: d1dc850d0a1c9c34b991ab6443f8368e,
     type: 3}
-  percentage_vs_health: 25
-  percentage_vs_shields: 200
+  percentage_vs_health: 0
+  percentage_vs_shields: 900
   synergies:
   - {fileID: 11400000, guid: c6a98648f0106964dae134db9409f70d, type: 2}

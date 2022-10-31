@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e313fae12f952c04bad466e034475aa0, type: 3}
   m_Name: Overkill
   m_EditorClassIdentifier: 
-  synergy_behaviour: Deal 800% damage to health
+  synergy_behaviour: Deal 2x damage to health
   salvo: {fileID: 9116272667533058843, guid: ee6665b4095b6474c8900e8e3822cf00, type: 3}
   required_cards:
   - {fileID: 11400000, guid: bce619d263cb84e409290fc5978f8156, type: 2}
   - {fileID: 11400000, guid: bce619d263cb84e409290fc5978f8156, type: 2}
   - {fileID: 11400000, guid: bce619d263cb84e409290fc5978f8156, type: 2}
+  percent_vs_HP: 1800
+  percent_vs_SHI: 0

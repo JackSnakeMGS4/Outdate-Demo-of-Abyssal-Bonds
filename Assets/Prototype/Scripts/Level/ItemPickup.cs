@@ -13,7 +13,7 @@ public class ItemPickup : MonoBehaviour
         if(player_inventory != null)
         {
             player_inventory.AddKey(key);
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 0.1f);
         }
     }
 }

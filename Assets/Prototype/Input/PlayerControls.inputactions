@@ -65,7 +65,7 @@
                     "id": "73377286-c26d-4328-8113-92dd418543a1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 },
                 {
@@ -83,7 +83,7 @@
                     "id": "a6474396-eb6a-4b73-aac2-ce579dec7567",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 },
                 {
@@ -110,7 +110,7 @@
                     "id": "581158ed-c0fa-4423-921d-0d66ce699656",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=0.6)",
+                    "interactions": "Hold(duration=0.8)",
                     "initialStateCheck": false
                 },
                 {
@@ -120,6 +120,24 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Recharge Shield",
+                    "type": "Button",
+                    "id": "bea58e19-c85a-49b4-ac53-759e89ba9b98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Discard Card",
+                    "type": "Button",
+                    "id": "c1bdaf63-b1ec-49e0-adeb-bfe35bf8fa77",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 }
             ],
@@ -462,6 +480,50 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "Pause Game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c62c72a-0946-480a-af35-f03c74c0ec4a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Recharge Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06f76ecb-2687-4c43-8398-4c69dcd420fb",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Recharge Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "941e636a-45d2-4c97-9365-d1d70f695bc0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Discard Card",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2351ec40-611d-4292-b5a5-6680a005c7a2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Discard Card",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

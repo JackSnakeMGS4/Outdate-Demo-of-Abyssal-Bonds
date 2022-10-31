@@ -5,7 +5,7 @@
 			<value>shot_impact</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{fced8709-343a-496f-94ac-91fbd0d2c23a}</destination>
@@ -144,6 +144,7 @@
 		<relationship name="effects">
 			<destination>{971c5e36-30ee-46c9-b8ad-45be2f3982be}</destination>
 			<destination>{c2a1b426-d7b6-40fc-b044-47daac1c330d}</destination>
+			<destination>{9a5c92c4-75d0-44c2-a9b9-61c9028781ca}</destination>
 			<destination>{fabe40c0-871c-410e-a641-3c2b30112f78}</destination>
 		</relationship>
 	</object>
@@ -169,6 +170,17 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{c2a1b426-d7b6-40fc-b044-47daac1c330d}" />
+	<object class="SpatialiserEffect" id="{9a5c92c4-75d0-44c2-a9b9-61c9028781ca}">
+		<property name="distanceRolloffType">
+			<value>2</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="SFXReverbEffect" id="{fabe40c0-871c-410e-a641-3c2b30112f78}">
 		<property name="decayTime">
 			<value>500</value>

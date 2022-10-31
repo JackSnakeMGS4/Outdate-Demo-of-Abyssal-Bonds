@@ -25,6 +25,8 @@ public class DeckManager : MonoBehaviour
     private TextMeshProUGUI deck_size_text;
     [SerializeField]
     private TextMeshProUGUI discard_pile_size_text;
+    [SerializeField]
+    private TextMeshProUGUI synergized_cards_text;
 
     private List<CardObject> current_hand = new List<CardObject>();
     private PlayerShooting p_shooting;
@@ -61,10 +63,24 @@ public class DeckManager : MonoBehaviour
 
     public void UseCard()
     {
-        if(current_hand.Count >= 1)
+        if(current_hand.Count >= 1 && p_shooting.Ammo_Count > 0)
         {
             CardObject card_obj = current_hand[0];
             CardBasedBehavior(card_obj.Card);
+
+            available_card_slots[card_obj.Index] = true;
+            card_obj.HideCard();
+            discard_pile.Add(card_obj.Card);
+            current_hand.Remove(card_obj);
+            DrawCard();
+        }
+    }
+
+    public void DiscardCard()
+    {
+        if (current_hand.Count >= 1)
+        {
+            CardObject card_obj = current_hand[0];
 
             available_card_slots[card_obj.Index] = true;
             card_obj.HideCard();
@@ -199,7 +215,7 @@ public class DeckManager : MonoBehaviour
         if (possible_synergy != null)
         {
             Debug.Log(possible_synergy.synergy_behaviour);
-            p_shooting.Shoot(possible_synergy.salvo);
+            p_shooting.Shoot(possible_synergy.salvo, possible_synergy.percent_vs_HP, possible_synergy.percent_vs_SHI);
         }
     }
 
@@ -229,23 +245,84 @@ public class DeckManager : MonoBehaviour
 
     IEnumerator FlashCard(Image image)
     {
+        float rate_of_change = .1f;
         Color color = image.color;
-        color.a = .7f;
+        Vector3 scale = image.rectTransform.localScale;
+
+        #region TempAnimation
+        color.a -= rate_of_change;
+        scale.x -= rate_of_change;
+        scale.y -= rate_of_change;
+        image.rectTransform.localScale = scale;
         image.color = color;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.05f);
+        color.a -= rate_of_change;
+        scale.x -= rate_of_change;
+        scale.y -= rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a -= rate_of_change;
+        scale.x -= rate_of_change;
+        scale.y -= rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a -= rate_of_change;
+        scale.x -= rate_of_change;
+        scale.y -= rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a -= rate_of_change;
+        scale.x -= rate_of_change;
+        scale.y -= rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a += rate_of_change;
+        scale.x += rate_of_change;
+        scale.y += rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a += rate_of_change;
+        scale.x += rate_of_change;
+        scale.y += rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a += rate_of_change;
+        scale.x += rate_of_change;
+        scale.y += rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.05f);
+        color.a += rate_of_change;
+        scale.x += rate_of_change;
+        scale.y += rate_of_change;
+        image.rectTransform.localScale = scale;
+        image.color = color;
+        yield return new WaitForSeconds(.1f);
+        #endregion
+
         color.a = 1f;
+        scale.x = 1f;
+        scale.y = 1f;
+        image.rectTransform.localScale = scale;
         image.color = color;
     }
 
     private void Start()
     {
         StartCoroutine(DealNewHand());
-        InvokeRepeating("HighlightFirstCard", 1f, 1f);
+        InvokeRepeating("HighlightFirstCard", 0f, .8f);
     }
 
     private void Update()
     {
         deck_size_text.text = deck.Count.ToString();
         discard_pile_size_text.text = discard_pile.Count.ToString();
+        synergized_cards_text.text = "Synergized Cards: " + syngergized_cards.Count.ToString();
     }
 }

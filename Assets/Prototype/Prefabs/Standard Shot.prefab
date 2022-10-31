@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9687b8cba872c4f50aeb3b2b3ff1a0b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!61 &-6824944484502726945
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.2}
+  m_Size: {x: 0.15, y: 0.2}
   m_EdgeRadius: 0
 --- !u!50 &4885285590211735532
 Rigidbody2D:
@@ -147,7 +147,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05567cf6dc904a24faf9de7adedc454d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  shot_ref:
+    Guid:
+      Data1: -1818362442
+      Data2: 1167902944
+      Data3: 1737296820
+      Data4: -213117721
+    Path: event:/shot_impact
+  impact_ref:
+    Guid:
+      Data1: 1887224676
+      Data2: 1080294057
+      Data3: -588854121
+      Data4: -734526025
+    Path: event:/death
+  damage: 5
+  type: 3
   destroy_self_time: 10
   impact_effect: {fileID: 1089080863017543043, guid: 99db9fb0bed7b3047a04d6b8efe5ec41,
     type: 3}

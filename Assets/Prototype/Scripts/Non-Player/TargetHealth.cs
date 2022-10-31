@@ -10,6 +10,7 @@ public class TargetHealth : MonoBehaviour
     
     [SerializeField, Range(1f, 1000f)]
     private float max_shields = 1;
+    public float max_shi{ get { return max_shields; } }
     protected float current_shields;
 
     [SerializeField]
@@ -18,6 +19,13 @@ public class TargetHealth : MonoBehaviour
     Color hurt_color;
 
     private SpriteRenderer sprite;
+    [SerializeField]
+    private GameManager gm;
+
+    [SerializeField]
+    private UnityEngine.UI.Slider hp_bar;
+    [SerializeField]
+    private UnityEngine.UI.Slider shi_bar;
 
     private void Start()
     {
@@ -26,15 +34,41 @@ public class TargetHealth : MonoBehaviour
         current_shields = max_shields;
     }
 
-    public void TakeDamage(float health_damage, float shield_damage)
+    private void Update()
     {
-        if(current_shields <= 0)
+        if(hp_bar != null && shi_bar != null)
         {
-            StartCoroutine(DamageEffectSequence(health_damage));
+            hp_bar.value = current_health/100;
+            shi_bar.value = current_shields/100;
         }
-        else
+    }
+
+    public void TakeDamage(float health_damage, float shield_damage, DamageType dmg_type)
+    {
+        //if(current_shields <= 0)
+        //{
+        //    StartCoroutine(DamageEffectSequence(health_damage));
+        //}
+        //else
+        //{
+        //    StartCoroutine(ShieldEffectSequence(shield_damage));
+        //}
+        switch (dmg_type)
         {
-            StartCoroutine(ShieldEffectSequence(shield_damage));
+            case DamageType.BOTH:
+                StartCoroutine(ShieldEffectSequence(shield_damage));
+                StartCoroutine(DamageEffectSequence(health_damage));
+                break;
+            default:
+                if (current_shields <= 0)
+                {
+                    StartCoroutine(DamageEffectSequence(health_damage));
+                }
+                else
+                {
+                    StartCoroutine(ShieldEffectSequence(shield_damage));
+                }
+                break;
         }
     }
 
@@ -48,7 +82,19 @@ public class TargetHealth : MonoBehaviour
         sprite.color = Color.white;
         if (current_health <= 0)
         {
+            switch (gameObject.tag)
+            {
+                case "Enemy":
+                    gm.en_left -= 1; 
+                    break;
+                case "Boss":
+                    gm.is_boss_dead = true;
+                    break;
+                default:
+                    break;
+            }
             gameObject.SetActive(false);
+
             StopAllCoroutines();
         }
     }

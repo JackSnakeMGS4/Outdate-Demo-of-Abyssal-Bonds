@@ -5,7 +5,7 @@
 			<value>idle_enemy</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{fced8709-343a-496f-94ac-91fbd0d2c23a}</destination>
@@ -116,7 +116,7 @@
 	<object class="MixerBusEffectChain" id="{9f14344c-6092-48cf-a337-8cb82c7f1d99}">
 		<relationship name="effects">
 			<destination>{a2d00a9f-9f07-45c2-89c1-82b457a3100c}</destination>
-			<destination>{aea86ce9-696e-4a56-940c-3812e69caeae}</destination>
+			<destination>{dc077093-c34d-4b8d-840e-181ed6eb1254}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{8046745a-cf86-43cc-88ca-0a68bc7c22bb}" />
@@ -124,44 +124,32 @@
 	<object class="MixerBusEffectChain" id="{1eb20d73-9177-47f9-8604-edfa381e2a35}">
 		<relationship name="effects">
 			<destination>{b981043a-a838-4de1-adfb-f4fb012d4254}</destination>
+			<destination>{c217f457-1b39-4e92-9304-c7d3a1a55ab8}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9e60be39-c400-40d2-97fe-24230091bb94}" />
 	<object class="MixerBusFader" id="{a2d00a9f-9f07-45c2-89c1-82b457a3100c}" />
-	<object class="SFXReverbEffect" id="{aea86ce9-696e-4a56-940c-3812e69caeae}">
-		<property name="decayTime">
-			<value>500</value>
+	<object class="ObjectSpatialiserEffect" id="{dc077093-c34d-4b8d-840e-181ed6eb1254}">
+		<property name="distanceRolloffType">
+			<value>2</value>
 		</property>
-		<property name="earlyDelay">
-			<value>11</value>
+		<property name="maximumDistance">
+			<value>45</value>
 		</property>
-		<property name="lateDelay">
-			<value>12.5</value>
-		</property>
-		<property name="HFReference">
-			<value>280</value>
-		</property>
-		<property name="HFDecayRatio">
-			<value>26</value>
-		</property>
-		<property name="diffusion">
-			<value>16</value>
-		</property>
-		<property name="density">
-			<value>20</value>
-		</property>
-		<property name="lowShelfGain">
-			<value>-27.5</value>
-		</property>
-		<property name="highCut">
-			<value>3000</value>
-		</property>
-		<property name="earlyLateMix">
-			<value>83</value>
-		</property>
-		<property name="wetLevel">
-			<value>-18</value>
+		<property name="extentMode">
+			<value>1</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{b981043a-a838-4de1-adfb-f4fb012d4254}" />
+	<object class="SpatialiserEffect" id="{c217f457-1b39-4e92-9304-c7d3a1a55ab8}">
+		<property name="maximumDistance">
+			<value>75</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>0.399999976</value>
+		</property>
+	</object>
 </objects>

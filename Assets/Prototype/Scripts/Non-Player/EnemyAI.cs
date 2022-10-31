@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using FMOD.Studio;
 
 public class EnemyAI: MonoBehaviour
 {
+    [SerializeField]
+    private FMODUnity.EventReference idle_event;
+    [SerializeField]
+    private FMODUnity.EventReference detection_event;
+
     [SerializeField, Header("Target Settings")]
     private Transform target;
     [SerializeField]
@@ -51,6 +57,7 @@ public class EnemyAI: MonoBehaviour
         if (seeker.IsDone())
         {
             seeker.StartPath(rb.position, PickRandomPoint(), OnPathComplete);
+            FMODUnity.RuntimeManager.PlayOneShotAttached(idle_event, gameObject);
         }
     }
 
@@ -66,6 +73,8 @@ public class EnemyAI: MonoBehaviour
         if (!IsTargetInRange())
         {
             is_chasing = false;
+            FMODUnity.RuntimeManager.PlayOneShotAttached(idle_event, gameObject);
+
             CancelInvoke("ChaseTarget");
             InvokeRepeating("UpdatePath", 0f, wander_rate);
         }
@@ -144,6 +153,8 @@ public class EnemyAI: MonoBehaviour
         if (IsTargetInRange() && !is_chasing)
         {
             is_chasing = true;
+            FMODUnity.RuntimeManager.PlayOneShotAttached(detection_event, gameObject);
+
             CancelInvoke("UpdatePath");
             InvokeRepeating("ChaseTarget", 0f, 1f);
         }

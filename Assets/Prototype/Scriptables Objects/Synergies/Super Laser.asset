@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   synergy_behaviour: Penetrates all targets in trajectory and deals 100% shield damage
     X targets penetrated
-  salvo: {fileID: 0}
+  salvo: {fileID: 3868540079306406531, guid: 19647f531bfebf640b78bc9b81ddfc2a, type: 3}
   required_cards:
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}
   - {fileID: 11400000, guid: 829ef580dce22024589963efd7aa9277, type: 2}
+  percent_vs_HP: 0
+  percent_vs_SHI: 1800

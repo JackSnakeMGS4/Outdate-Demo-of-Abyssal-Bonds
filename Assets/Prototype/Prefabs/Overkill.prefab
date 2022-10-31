@@ -120,6 +120,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9078842416338990363, guid: 363e98697a5d5574eba6803f420ca7bc,
         type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9078842416338990363, guid: 363e98697a5d5574eba6803f420ca7bc,
+        type: 3}
       propertyPath: impact_effect
       value: 
       objectReference: {fileID: 5410798491834199264, guid: f89588d3b36972d4dac104425bf4ab83,

@@ -87,7 +87,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""73377286-c26d-4328-8113-92dd418543a1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""MultiTap"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -105,7 +105,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""a6474396-eb6a-4b73-aac2-ce579dec7567"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""MultiTap"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -132,7 +132,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""581158ed-c0fa-4423-921d-0d66ce699656"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.6)"",
+                    ""interactions"": ""Hold(duration=0.8)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -142,6 +142,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Recharge Shield"",
+                    ""type"": ""Button"",
+                    ""id"": ""bea58e19-c85a-49b4-ac53-759e89ba9b98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Discard Card"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1bdaf63-b1ec-49e0-adeb-bfe35bf8fa77"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -486,6 +504,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Pause Game"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c62c72a-0946-480a-af35-f03c74c0ec4a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Recharge Shield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06f76ecb-2687-4c43-8398-4c69dcd420fb"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Recharge Shield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""941e636a-45d2-4c97-9365-d1d70f695bc0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Discard Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2351ec40-611d-4292-b5a5-6680a005c7a2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Discard Card"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -810,6 +872,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_UseSingleCard = m_Player.FindAction("Use Single Card", throwIfNotFound: true);
         m_Player_ReloadDeck = m_Player.FindAction("Reload Deck", throwIfNotFound: true);
         m_Player_PauseGame = m_Player.FindAction("Pause Game", throwIfNotFound: true);
+        m_Player_RechargeShield = m_Player.FindAction("Recharge Shield", throwIfNotFound: true);
+        m_Player_DiscardCard = m_Player.FindAction("Discard Card", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Navigation = m_Menu.FindAction("Navigation", throwIfNotFound: true);
@@ -888,6 +952,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseSingleCard;
     private readonly InputAction m_Player_ReloadDeck;
     private readonly InputAction m_Player_PauseGame;
+    private readonly InputAction m_Player_RechargeShield;
+    private readonly InputAction m_Player_DiscardCard;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -905,6 +971,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @UseSingleCard => m_Wrapper.m_Player_UseSingleCard;
         public InputAction @ReloadDeck => m_Wrapper.m_Player_ReloadDeck;
         public InputAction @PauseGame => m_Wrapper.m_Player_PauseGame;
+        public InputAction @RechargeShield => m_Wrapper.m_Player_RechargeShield;
+        public InputAction @DiscardCard => m_Wrapper.m_Player_DiscardCard;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -953,6 +1021,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @PauseGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPauseGame;
+                @RechargeShield.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRechargeShield;
+                @RechargeShield.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRechargeShield;
+                @RechargeShield.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRechargeShield;
+                @DiscardCard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiscardCard;
+                @DiscardCard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiscardCard;
+                @DiscardCard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiscardCard;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -996,6 +1070,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @RechargeShield.started += instance.OnRechargeShield;
+                @RechargeShield.performed += instance.OnRechargeShield;
+                @RechargeShield.canceled += instance.OnRechargeShield;
+                @DiscardCard.started += instance.OnDiscardCard;
+                @DiscardCard.performed += instance.OnDiscardCard;
+                @DiscardCard.canceled += instance.OnDiscardCard;
             }
         }
     }
@@ -1090,6 +1170,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnUseSingleCard(InputAction.CallbackContext context);
         void OnReloadDeck(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnRechargeShield(InputAction.CallbackContext context);
+        void OnDiscardCard(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

@@ -30,6 +30,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField, Header("Gun Settings")]
     private int max_ammo = 9;
     private int current_ammo;
+    public int Ammo_Count { get { return current_ammo; } }
     [SerializeField, Range(0f, 5f)]
     private float reload_time = 2.5f;
 
@@ -136,7 +137,7 @@ public class PlayerShooting : MonoBehaviour
         }
     } 
     
-    public void Shoot(GameObject salvo)
+    public void Shoot(GameObject salvo, float percent_v_hp, float percent_v_shield)
     {
         if (is_aiming && current_ammo > 0)
         {
@@ -151,7 +152,7 @@ public class PlayerShooting : MonoBehaviour
             //Debug.Log("Shooting " + card.name);
             bullet.layer = gameObject.layer;
             Projectile projectile = bullet.GetComponent<Projectile>();
-            projectile.ProjectileSettings(player_sprite.sortingLayerName, 800f, 800f, dir, firing_velocity, gameObject.tag);
+            projectile.ProjectileSettings(player_sprite.sortingLayerName, percent_v_hp, percent_v_shield, dir, firing_velocity, gameObject.tag);
 
             current_ammo = 0;
 
